@@ -7,10 +7,15 @@
             [clojure.java.shell :refer [sh]])
   (:import [speclj.reporting Reporter]))
 
-;;(with-out-str (sh "notify-send" "-i" "dialog-close" "Bo" "ra"))
+(defn- settings [type]
+  (case type
+    :pass {:name "Success" :icon "dialog-ok"}
+    :fail {:name "Failure" :icon "dialog-close"}
+    :error {:name "Error" :icon "dialog-close"}))
 
 (defn notify-osd [result message]
-  "test")
+  (let [params (settings result)]
+    (sh "notify-send" "-i" (:icon params) (:name params) message)))
 
 (defn notify-osd-message [results]
   (let [result-map (categorize results)
