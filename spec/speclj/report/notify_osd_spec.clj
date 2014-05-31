@@ -1,11 +1,9 @@
 (ns speclj.speclj.report.notify-osd
   (:require [speclj.components :refer [new-characteristic new-description]]
             [speclj.reporting :refer [report-runs report-error]]
-            [speclj.platform :refer [new-exception new-failure new-pending]]
             [speclj.results :refer [pass-result fail-result pending-result error-result]]
             [speclj.core :refer :all]
             [speclj.report.notify-osd :as osd]))
-
 
 (describe "notify osd reporter"
   (with reporter (osd/new-notify-osd-reporter))
@@ -56,7 +54,7 @@
                  @@message)))
 
     (it "is compilation errors"
-      (let [error (error-result (new-exception "Failed to compile"))
+      (let [error (error-result (#(java.lang.Exception. "Failed to compile")))
             output (with-out-str (report-error @reporter error))]
         (should= :error @@result)
         (should= "Exception: Failed to compile" @@message)))))
