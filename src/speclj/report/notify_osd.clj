@@ -15,7 +15,9 @@
 
 (defn notify-osd [result message]
   (let [params (settings result)]
-    (sh "notify-send" "-i" (:icon params) (:name params) message)))
+    (try
+      (sh "notify-send" "-i" (:icon params) (:name params) message)
+      (catch Exception e (println "Caught exception: " (.getMessage e))))))
 
 (defn notify-osd-message [results]
   (let [result-map (categorize results)

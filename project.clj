@@ -1,9 +1,11 @@
-(defproject speclj-notify-osd "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+(defproject speclj-notify-osd "0.0.1"
+  :description "Notify-osd reporter for the speclj testing framework"
+  :url "https://github.com/randspy/speclj-notify-osd"
+  :license {:name "MIT License"
+            :url "http://opensource.org/licenses/MIT"}
   :dependencies [[org.clojure/clojure "1.5.1"]]
-  :profiles {:dev {:dependencies [[speclj "3.0.2"]]}}
-  :plugins [[speclj "3.0.2"]]
-  :test-paths ["spec"])
+  :profiles {
+             :dev {
+                   :plugins [[speclj "3.0.2"]]
+                   :test-paths ["spec"]
+                   :dependencies [[speclj "3.0.2"]]}})
