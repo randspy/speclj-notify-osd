@@ -1,4 +1,4 @@
-(defproject speclj-notify-osd "0.0.1"
+(defproject speclj-notify-osd "0.0.2"
   :description "Notify-osd reporter for the speclj testing framework"
   :url "https://github.com/randspy/speclj-notify-osd"
   :license {:name "MIT License"
