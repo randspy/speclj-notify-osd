@@ -9,7 +9,7 @@ It is based on [speclj-growl](https://github.com/pgr0ss/speclj-growl).
 
 If you use [leiningen](https://github.com/technomancy/leiningen), add the following to your project.clj under the :dev profile::
 
-    :dependencies [[speclj-notify-osd "0.0.1"]]
+    :dependencies [[speclj-notify-osd "0.0.2"]]
 
 Speclj 2.7.1 or newer is required.
 
