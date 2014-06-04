@@ -11,17 +11,25 @@
   (case type
     :pass {:name "Success" :icon "dialog-ok"}
     :fail {:name "Failure" :icon "dialog-close"}
-    :error {:name "Error" :icon "dialog-close"}))
+    :error {:name "Error" :icon "dialog-close" }
+    :compilation-error {:name "Error" :icon "dialog-close"}))
 
 (defn notify-osd [result message]
-  (let [params (settings result)]
-    (try
-      (sh "notify-send" "-i" (:icon params) (:name params) message)
-      (catch Exception e (println "Caught exception: " (.getMessage e))))))
+  (when (not= result :error)
+    (let [params (settings result)]
+      (try
+        (sh "notify-send" "-i" (:icon params) (:name params) message)
+        (catch Exception e (println "Caught exception: " (.getMessage e)))))))
+
+(defn get-status [result]
+  (cond
+   (not= 0 (count (:error result))) :error
+   (not= 0 (count (:fail result))) :fail
+   :else :pass))
 
 (defn notify-osd-message [results]
   (let [result-map (categorize results)
-        result     (if (= 0 (count (:fail result-map))) :pass :fail)
+        result     (get-status result-map)
         seconds    (format-seconds (tally-time results))
         outcome    (describe-counts-for result-map)
         message    (format "%s\nTook %s seconds" outcome seconds)]
@@ -37,7 +45,8 @@
     (report-runs [this results] (notify-osd-message results))
     (report-error [this error]
       (let [exception (.-exception error)]
-        (notify-osd :error (format "%s: %s"
+        (println "error")
+        (notify-osd :compilation-error (format "%s: %s"
                               (.getSimpleName (class exception))
                               (.getMessage exception))))))
 

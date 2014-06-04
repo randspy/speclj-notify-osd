@@ -44,7 +44,7 @@
         (should= "2 examples, 0 failures, 1 pending\nTook 1.10000 seconds"
                  @@message)))
 
-    (it "is a run with failing and pending"
+    (it "is a run with failing and pending tests"
       (let [results [(pass-result nil 0.1)
                      (fail-result nil 1.1 0)
                      (pending-result nil 1 0)]
@@ -53,8 +53,16 @@
         (should= "3 examples, 1 failures, 1 pending\nTook 2.20000 seconds"
                  @@message)))
 
-    (it "is compilation errors"
+    (it "is a run with pass and error tests"
+      (let [results [(pass-result nil 0.1)
+                     (error-result (#(java.lang.Exception. "Failed to compile")))]
+            output (with-out-str (report-runs @reporter results))]
+        (should= :error @@result)
+        (should= "2 examples, 0 failures, 1 errors\nTook 0.10000 seconds"
+                 @@message)))
+
+    (it "is a run with a compilation errors"
       (let [error (error-result (#(java.lang.Exception. "Failed to compile")))
             output (with-out-str (report-error @reporter error))]
-        (should= :error @@result)
+        (should= :compilation-error @@result)
         (should= "Exception: Failed to compile" @@message)))))

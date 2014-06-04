@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/randspy/speclj-notify-osd.svg?branch=master)](http://travis-ci.org/randspy/speclj-notify-osd)
 
 speclj-notify-osd is a plugin for [speclj](http://speclj.com/) that shows success and failure messages with [notify-osd](https://wiki.ubuntu.com/NotifyOSD).
-It is based on [speclj-growl](https://github.com/pgr0ss/speclj-growl)
+It is based on [speclj-growl](https://github.com/pgr0ss/speclj-growl).
 
 ## Installation
 
